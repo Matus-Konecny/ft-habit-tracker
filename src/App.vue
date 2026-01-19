@@ -1,7 +1,17 @@
-<script setup lang="ts"></script>
-
 <template>
-  <h1>You did it!</h1>
+  <div>
+    <NavBar />
+    <router-view />
+  </div>
 </template>
 
-<style scoped></style>
+<script>
+import NavBar from './components/NavBar.vue'
+
+export default {
+  name: 'App',
+  components: {
+    NavBar
+  }
+}
+</script>
