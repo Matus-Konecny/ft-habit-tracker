@@ -1,9 +1,9 @@
 <template>
   <nav id="nav">
-    <div class="logo">
+    <router-link to="/" class="logo">
       <span class="logo-icon">🍃</span>
       Habit Tracker
-    </div>
+    </router-link>
     <div class="nav-links">
       <NavLink to="/" label="Dashboard" icon="fa-chart-line" />
       <NavLink to="/myhabits" label="My habits" icon="fa-list-check" />
@@ -47,6 +47,7 @@ export default {
   color: #000;
   gap: 8px;
   font-family: 'Nunito', sans-serif;
+  text-decoration: none;
 }
 
 .logo-icon {
