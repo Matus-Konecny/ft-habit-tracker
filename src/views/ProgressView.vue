@@ -1,8 +1,8 @@
 <template>
   <div class="progress-container">
     <div class="progress-header">
-      <h1>Môj Progress</h1>
-      <p class="subtitle">Sleduj svoj pokrok vo všetkých návykoch</p>
+      <h1>My progress</h1>
+      <p class="subtitle">Track your progress across all your habits</p>
     </div>
 
     <div class="table-wrapper">
@@ -10,13 +10,13 @@
         <thead>
           <tr>
             <th class="col-habit">
-              <i class="fas fa-feather-alt"></i> Návyk
+              <i class="fas fa-feather-alt"></i> Habit
             </th>
             <th class="col-category">
-              <i class="fas fa-tag"></i> Kategória
+              <i class="fas fa-tag"></i> Category
             </th>
             <th class="col-streak">
-              <i class="fas fa-fire"></i> Aktuálny Streak
+              <i class="fas fa-fire"></i> Current Streak
             </th>
             <th class="col-action">
               <i class="fas fa-plus"></i>
@@ -60,42 +60,50 @@ export default {
       habits: [
         {
           id: 1,
-          name: 'Morning Meditation',
-          category: 'Health',
+          name: 'Reading',
+          category: 'Education',
           categoryColor: '#10b981',
-          icon: 'fa-spa',
+          icon: 'fa-book',
           streak: 12
         },
         {
           id: 2,
-          name: 'Read for 30 Minutes',
-          category: 'Learning',
+          name: 'Meditation',
+          category: 'Wellness',
           categoryColor: '#a855f7',
-          icon: 'fa-book',
+          icon: 'fa-spa',
           streak: 5
         },
         {
           id: 3,
-          name: 'Weekly Budget Review',
-          category: 'Finance',
+          name: 'Exercise',
+          category: 'Fitness',
           categoryColor: '#f59e0b',
-          icon: 'fa-calculator',
+          icon: 'fa-dumbbell',
           streak: 3
         },
         {
           id: 4,
-          name: 'Exercise',
-          category: 'Fitness',
+          name: 'Writing a journal',
+          category: 'Personal development',
           categoryColor: '#3b82f6',
-          icon: 'fa-dumbbell',
+          icon: 'fa-pen',
           streak: 8
         },
         {
           id: 5,
-          name: 'Journal Writing',
-          category: 'Personal Growth',
+          name: 'Learning Spanish',
+          category: 'Education',
+          categoryColor: '#10b981',
+          icon: 'fa-language',
+          streak: 15
+        },
+        {
+          id: 6,
+          name: 'Healthy diet',
+          category: 'Health',
           categoryColor: '#ec4899',
-          icon: 'fa-pen',
+          icon: 'fa-heart',
           streak: 15
         }
       ]
