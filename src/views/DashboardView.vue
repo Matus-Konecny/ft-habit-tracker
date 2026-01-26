@@ -1,28 +1,28 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-header">
-      <h1>Dnešný prehľad</h1>
-      <p class="date">Pondelok 26. Januára</p>
+      <h1>Today's Dashboard</h1>
+      <p class="date">{{ currentDate }}</p>
     </div>
     
     <div class="cards-grid">
       <DashboardCard 
-        title="Dnešné návyky"
+        title="Today's completed habits"
         value="0/0"
         icon="fa-check-circle"
       />
       <DashboardCard 
-        title="Celkovo návykov"
+        title="Count of habits"
         value="0"
         icon="fa-ring"
       />
       <DashboardCard 
-        title="Najdlhší streak"
+        title="Longest streak"
         value="0 dní"
         icon="fa-fire"
       />
       <DashboardCard 
-        title="Priemerná úspešnosť"
+        title="Average success rate"
         value="0%"
         icon="fa-chart-line"
       />
@@ -31,11 +31,34 @@
 </template>
 
 <script>
-import DashboardCard from '@/components/Dashboard.vue'
+import DashboardCard from '../components/DashboardCard.vue'
 
 export default {
   name: 'Dashboard',
-  components: { DashboardCard }
+  components: { DashboardCard },
+  data() {
+    return {
+      currentDate: ''
+    }
+  },
+  mounted() {
+    this.updateDate()
+  },
+  methods: {
+    updateDate() {
+      const date = new Date()
+      
+      const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                      'July', 'August', 'September', 'October', 'November', 'December']
+      
+      const dayName = daysOfWeek[date.getDay()]
+      const day = date.getDate()
+      const month = months[date.getMonth()]
+      
+      this.currentDate = `${dayName} ${day}. ${month}`
+    }
+  }
 }
 </script>
 
