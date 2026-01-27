@@ -40,35 +40,21 @@
 </template>
 
 <script>
-// === ProgressView.vue – DEBUG ===
 import { useHabitsStore } from '../stores/habitsStore'
 import ProgressCheckbox from '../components/ProgressCheckbox.vue'
 
 export default {
   name: 'Progress',
   components: { ProgressCheckbox },
-  data() {
-    return {
-      debugInfo: ''
-    }
-  },
+
   computed: {
     habitsStore() {
-      const store = useHabitsStore()
-      this.debugInfo = `Store: ${store.habits?.length || 0} habits`
-      return store
+      return useHabitsStore()
     },
     habits() {
-      const h = this.habitsStore.habits || []
-      this.debugInfo += ` | Habits: ${h.length}`
-      return h
+      return this.habitsStore.habits || []
     }
   },
-  methods: {
-    handleCheckboxChange(data) {
-      console.log('Checkbox:', data)
-    }
-  }
 }
 </script>
 
