@@ -29,7 +29,7 @@
 
         <td>{{ habit.streak }}</td>
         <td>
-          <ProgressCheckbox :habitId="habit.id" @checked="handleCheckboxChange" />
+          <ProgressCheckbox :habitId="habit.id"/>
         </td>
       </tr>
     </tbody>

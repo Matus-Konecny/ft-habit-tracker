@@ -24,20 +24,32 @@
 </template>
 
 <script>
+import {useHabitsStore} from '../stores/habitsStore'
+
 export default {
   name: 'ProgressCheckbox',
   props: {
     habitId: { type: [String, Number], required: true }
   },
-  data() {
-    return {
-      isChecked: false
+
+  computed: {
+    habitsStore() {
+      return useHabitsStore()
+    },
+    habit() {
+      return this.habitsStore.habits.find(h => h.id === this.habitId)
+    },
+    isChecked: {
+      get() {
+        return this.habit ? this.habit.completedToday : false
+      }
     }
   },
+
   methods: {
-    toggleCheckbox() {
-      this.isChecked = !this.isChecked
-      this.$emit('checked', { habitId: this.habitId, checked: this.isChecked })
+    toggleCheckbox(event) {
+      const checked = event.target.checked
+      this.habitsStore.toggleHabitToday(this.habitId, checked)
     }
   }
 }
