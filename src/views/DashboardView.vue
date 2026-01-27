@@ -52,8 +52,7 @@ export default {
       return `${count}/${total}`
     },
     longestStreak() {
-      const streak = this.habitsStore.longestStreak || 0
-      return `${streak} days`
+    return this.habitsStore.longestStreakText
     }
   },
 

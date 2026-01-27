@@ -15,7 +15,10 @@ export const useHabitsStore = defineStore('habits', {
   getters: {
     totalHabits: state => state.habits.length,
     completedTodayCount: state => state.habits.filter(h => h.completedToday).length,
-    longestStreak: state => state.habits.reduce((max, h) => Math.max(max, h.streak), 0),
+    longestStreakText(state) {
+        const streak = state.habits.reduce((max, h) => Math.max(max, h.streak), 0)
+        return streak === 1 ? '1 day' : `${streak} days`
+    },  
     
     getCategoryColor: (state) => (category) => {
       const colors = {
