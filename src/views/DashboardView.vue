@@ -44,7 +44,7 @@ export default {
       return useHabitsStore()
     },
     totalHabits() {
-      return this.habitsStore.totalHabits || 0
+      return this.habitsStore.totalHabits.toString() || 0
     },
     completedTodayText() {
       const count = this.habitsStore.completedTodayCount || 0
