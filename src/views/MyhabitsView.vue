@@ -29,55 +29,27 @@
 </template>
 
 <script>
+import { useHabitsStore } from '../stores/habitsStore'
 import HabitCard from '../components/HabitCard.vue'
 
 export default {
   name: 'MyHabits',
   components: { HabitCard },
   data() {
-    return {
-      searchQuery: '',
-      habits: [
-        {
-          id: 1,
-          name: 'Reading',
-          category: 'Education'
-        },
-        {
-          id: 2,
-          name: 'Meditation',
-          category: 'Wellness',
-        },
-        {
-          id: 3,
-          name: 'Exercise',
-          category: 'Fitness',
-        },
-        {
-          id: 4,
-          name: 'Writing a journal',
-          category: 'Personal development',
-        },
-        {
-          id: 5,
-          name: 'Learning Spanish',
-          category: 'Education',
-        },
-        {
-          id: 6,
-          name: 'Healthy diet',
-          category: 'Health',
-        }
-      ]
-    }
+    return { searchQuery: '' }
   },
+
   computed: {
+    habits() {
+      const store = useHabitsStore()
+      return store.habits
+    },
     filteredHabits() {
       return this.habits.filter(habit =>
         habit.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       )
     }
-  }
+  },
 }
 </script>
 

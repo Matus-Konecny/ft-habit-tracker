@@ -7,30 +7,27 @@
     
     <div class="cards-grid">
       <DashboardCard 
-        title="Today's completed habits"
-        value="0/0"
-        icon="fa-check-circle"
-      />
-      <DashboardCard 
-        title="Count of habits"
-        value="0"
-        icon="fa-ring"
-      />
+      title="Today's completed habits"
+      :value="completedTodayText"
+      icon="fa-check-circle"
+    />
+    <DashboardCard 
+      title="Count of habits"
+      :value="totalHabits"
+      icon="fa-ring"
+    />
+
       <DashboardCard 
         title="Longest streak"
-        value="0 dní"
+        :value="longestStreak"
         icon="fa-fire"
-      />
-      <DashboardCard 
-        title="Average success rate"
-        value="0%"
-        icon="fa-chart-line"
       />
     </div>
   </div>
 </template>
 
 <script>
+import { useHabitsStore } from '../stores/habitsStore'
 import DashboardCard from '../components/DashboardCard.vue'
 
 export default {
@@ -41,9 +38,29 @@ export default {
       currentDate: ''
     }
   },
+
+  computed: {
+    habitsStore() {
+      return useHabitsStore()
+    },
+    totalHabits() {
+      return this.habitsStore.totalHabits || 0
+    },
+    completedTodayText() {
+      const count = this.habitsStore.completedTodayCount || 0
+      const total = this.habitsStore.totalHabits || 0
+      return `${count}/${total}`
+    },
+    longestStreak() {
+      const streak = this.habitsStore.longestStreak || 0
+      return `${streak} days`
+    }
+  },
+
   mounted() {
     this.updateDate()
   },
+
   methods: {
     updateDate() {
       const date = new Date()

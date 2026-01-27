@@ -5,51 +5,43 @@
       <p class="subtitle">Track your progress across all your habits</p>
     </div>
 
-    <div class="table-wrapper">
-      <table class="progress-table">
-        <thead>
-          <tr>
-            <th class="col-habit">
-              <i class="fas fa-feather-alt"></i> Habit
-            </th>
-            <th class="col-category">
-              <i class="fas fa-tag"></i> Category
-            </th>
-            <th class="col-streak">
-              <i class="fas fa-fire"></i> Current Streak
-            </th>
-            <th class="col-action">
-              <i class="fas fa-plus"></i>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="habit in habits" :key="habit.id" class="table-row">
-            <td class="col-habit">
-              <div class="habit-name">
-                <i :class="['fas', habit.icon]"></i>
-                {{ habit.name }}
-              </div>
-            </td>
-            <td class="col-category">
-              <span class="category-badge" :style="{ backgroundColor: habit.categoryColor }">
-                {{ habit.category }}
-              </span>
-            </td>
-            <td class="col-streak">
-              <span class="streak-number">{{ habit.streak }}</span>
-            </td>
-            <td class="col-action">
-              <ProgressCheckbox :habitId="habit.id" @checked="handleCheckboxChange" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<div class="table-wrapper">
+  <table class="progress-table">
+    <thead>
+      <tr>
+        <th>Habit</th>
+        <th>Category</th> 
+        <th>Current Streak</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="habit in habits" :key="habit.id">
+        <td>{{ habit.name }}</td>
+        <td class="col-category">
+  <span 
+    class="category-badge" 
+    :style="{ backgroundColor: habitsStore.getCategoryColor(habit.category) }"
+  >
+    {{ habit.category }}
+  </span>
+</td>
+
+        <td>{{ habit.streak }}</td>
+        <td>
+          <ProgressCheckbox :habitId="habit.id" @checked="handleCheckboxChange" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
   </div>
 </template>
 
 <script>
+// === ProgressView.vue – DEBUG ===
+import { useHabitsStore } from '../stores/habitsStore'
 import ProgressCheckbox from '../components/ProgressCheckbox.vue'
 
 export default {
@@ -57,62 +49,24 @@ export default {
   components: { ProgressCheckbox },
   data() {
     return {
-      habits: [
-        {
-          id: 1,
-          name: 'Reading',
-          category: 'Education',
-          categoryColor: '#10b981',
-          icon: 'fa-book',
-          streak: 12
-        },
-        {
-          id: 2,
-          name: 'Meditation',
-          category: 'Wellness',
-          categoryColor: '#a855f7',
-          icon: 'fa-spa',
-          streak: 5
-        },
-        {
-          id: 3,
-          name: 'Exercise',
-          category: 'Fitness',
-          categoryColor: '#f59e0b',
-          icon: 'fa-dumbbell',
-          streak: 3
-        },
-        {
-          id: 4,
-          name: 'Writing a journal',
-          category: 'Personal development',
-          categoryColor: '#3b82f6',
-          icon: 'fa-pen',
-          streak: 8
-        },
-        {
-          id: 5,
-          name: 'Learning Spanish',
-          category: 'Education',
-          categoryColor: '#10b981',
-          icon: 'fa-language',
-          streak: 15
-        },
-        {
-          id: 6,
-          name: 'Healthy diet',
-          category: 'Health',
-          categoryColor: '#ec4899',
-          icon: 'fa-heart',
-          streak: 15
-        }
-      ]
+      debugInfo: ''
+    }
+  },
+  computed: {
+    habitsStore() {
+      const store = useHabitsStore()
+      this.debugInfo = `Store: ${store.habits?.length || 0} habits`
+      return store
+    },
+    habits() {
+      const h = this.habitsStore.habits || []
+      this.debugInfo += ` | Habits: ${h.length}`
+      return h
     }
   },
   methods: {
     handleCheckboxChange(data) {
-      console.log(`Habit ${data.habitId} - Checked: ${data.checked}`)
-      // Tu môžeš přidat logiku na uloženie do databázy
+      console.log('Checkbox:', data)
     }
   }
 }
@@ -154,6 +108,9 @@ export default {
   width: 100%;
   border-collapse: collapse;
   font-family: 'Nunito', sans-serif;
+  table-layout: fixed;
+  border-spacing: 0;
+  background: white;
 }
 
 .progress-table thead {
@@ -166,17 +123,19 @@ export default {
   text-align: left;
   font-weight: 600;
   font-size: 0.9rem;
-  color: #666;
+  color: #333;
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
   text-transform: none;
 }
 
 .progress-table tbody tr {
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #dee2e6;
   transition: background-color 0.3s ease;
 }
 
 .progress-table tbody tr:hover {
-  background-color: #f9f9f9;
+  background-color: #f0f8ff;
 }
 
 .progress-table tbody tr:last-child {
@@ -186,6 +145,8 @@ export default {
 .progress-table td {
   padding: 16px 20px;
   vertical-align: middle;
+  color: #333;
+  border-bottom: 1px solid #eee;
 }
 
 .col-habit {
@@ -223,7 +184,7 @@ export default {
   display: inline-block;
   padding: 6px 12px;
   border-radius: 20px;
-  color: white;
+  color: white !important;
   font-size: 0.85rem;
   font-weight: 500;
 }
@@ -231,7 +192,7 @@ export default {
 .streak-number {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #008060;
+  color: #008060 !important;
 }
 
 @media (max-width: 768px) {

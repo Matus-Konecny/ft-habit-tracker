@@ -4,18 +4,30 @@
     
     <div class="habit-content">
       <h3 class="habit-title">{{ habit.name }}</h3>
-      <p class="habit-category">{{ habit.category }}</p>
+      <p 
+        class="habit-category" 
+        :style="{ color: habitsStore.getCategoryColor(habit.category) }"
+        >
+        {{ habit.category }}
+      </p>
     </div>
   </div>
 </template>
 
 <script>
+import { useHabitsStore } from '../stores/habitsStore'
+
 export default {
   name: 'HabitCard',
   props: {
     habit: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    habitsStore() {
+      return useHabitsStore()
     }
   }
 }
@@ -69,7 +81,6 @@ export default {
 .habit-category {
   font-size: 13px;
   font-weight: 500;
-  color: #667eea;
   margin: 0;
 }
 </style>
